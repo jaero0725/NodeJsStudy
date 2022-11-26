@@ -14,3 +14,6 @@
 
 - 서버 재실행 자동화 : 서버 자동으로 껐다 켜주는 라이브러리 
 > npm install -g nodemon
+
+- req를 받아오려면 body-parser 라이브러리가 필요
+> npm install body-parser
