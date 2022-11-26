@@ -7,22 +7,26 @@ const PORT  = 8080;
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended : true}));
 
+//
+const propertiesReader = require('properties-reader');
+const properties = propertiesReader('application.properties');
+
 //mongo db 연결
 const MongoClient = require('mongodb').MongoClient;
-const MONGO_DB_URL =  'mongodb+srv://admin:qwer1234@cluster0.hqfk8sx.mongodb.net/todoapp?retryWrites=true&w=majority';
+const MONGO_DB_URL =  properties.get("MONGO_DB_URL");
 app.set('view engine','ejs');       //vue, react 사용 가능 
 
 var db; // 이게 Database임
-
 MongoClient.connect(MONGO_DB_URL, function(err, database){
     if(err) return console.log(err);
 
     db = database.db('todoapp');  // todoapp 이라는 db에 연결
 
     app.listen(PORT , () => {  
-        console.log('listening on ', PORT );
+        console.log('listening on ', PORT ,",",properties.get("MONGO_DB_URL"));
+        console.log(properties);
     });
-
+   
 });
 
 
@@ -35,7 +39,7 @@ app.get('/write', (req, res) => {
 });
 
 app.get('/list', (req, res) => {
-    res.render('list.ejs');
+    res.render('list.ejs'); //views 에 넣어두어야됨
 });
 
 app.post('/add', (req, res) => {
