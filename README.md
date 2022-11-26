@@ -1,2 +1,2 @@
 # NodeJsStudy
-NodeJS Study
+- NodeJS 버전 : 16.14.2
