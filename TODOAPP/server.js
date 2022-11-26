@@ -9,7 +9,7 @@ app.use(bodyParser.urlencoded({extended : true}));
 
 //mongo db 연결
 const MongoClient = require('mongodb').MongoClient;
-const MONGO_DB_URL =  'mongodb+srv://admin:qwer1234@cluster0.hqfk8sx.mongodb.net/todoapp?retryWrites=true&w=majority';
+const MONGO_DB_URL =  '';
 app.set('view engine','ejs');       //vue, react 사용 가능 
 
 var db; // 이게 Database임
