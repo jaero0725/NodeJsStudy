@@ -1,27 +1,48 @@
 // Server open 문법
 const express = require('express');
 const app = express();
-const portNumber = 8080;
+const PORT  = 8080;
 
-// listen(서버띄울 포트번호, 콜백- 띄운호 실행할 코드)
-app.listen(portNumber, function(){
-    console.log('listening on ', portNumber);
+//bodyParser 사용 
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({extended : true}));
+
+//mongo db 연결
+const MongoClient = require('mongodb').MongoClient;
+const MONGO_DB_URL =  'mongodb+srv://admin:qwer1234@cluster0.hqfk8sx.mongodb.net/todoapp?retryWrites=true&w=majority';
+app.set('view engine','ejs');       //vue, react 사용 가능 
+
+var db; // 이게 Database임
+
+MongoClient.connect(MONGO_DB_URL, function(err, database){
+    if(err) return console.log(err);
+
+    db = database.db('todoapp');  // todoapp 이라는 db에 연결
+
+    app.listen(PORT , () => {  
+        console.log('listening on ', PORT );
+    });
+
 });
 
-// ~ 경로로 들어오면 ~로 보내줌 controller 기능 
-app.get('/', function(req, res){
+
+app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
 });
 
-app.get('/pet', function(req, res){
-    res.send('펫 용품쇼핑 사이트');     // 1. /pet 으로 접속 -> pet 관련 안내문 띄워주자 
+app.get('/write', (req, res) => {
+    res.sendFile(__dirname + '/write.html');
 });
 
-app.get('/beauty', function(req, res){
-    res.send('뷰티 용품 쇼핑 사이트ss');
+app.get('/list', (req, res) => {
+    res.render('list.ejs');
 });
 
+app.post('/add', (req, res) => {
+    let todo = req.body; 
+    db.collection('post').insertOne(todo, (err, res) => {
+        console.log("저장 완료");
+    });  
 
-
-
-
+    return res.redirect("/write");
+});
