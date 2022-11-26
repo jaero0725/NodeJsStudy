@@ -16,4 +16,5 @@
 > npm install -g nodemon
 
 - req를 받아오려면 body-parser 라이브러리가 필요
+- body-parser는 node.js 모듈로 클라이언트 POST request data의 body로부터 파라미터를 편리하게 추출할 수 있다
 > npm install body-parser
