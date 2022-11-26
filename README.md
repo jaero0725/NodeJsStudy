@@ -10,3 +10,6 @@
 
 > npm help init <br>
 > npm install express
+
+- 서버 재실행 자동화 : 서버 자동으로 껐다 켜주는 라이브러리 
+> npm install -g nodemon
