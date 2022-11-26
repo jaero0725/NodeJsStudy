@@ -21,3 +21,6 @@
 
 - mongo DB 연결 
 > npm install mongodb
+
+- EJS : html template engine
+> npm install ejs
