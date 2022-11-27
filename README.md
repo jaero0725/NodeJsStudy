@@ -24,7 +24,7 @@
 - EJS : html template engine
 > npm install ejs
 
-## 📑 <a href="https://github.com/jaero0725/NodeJsStudy/tree/main/TODOAPP>clipboard TODO List 프로젝트 </a> 
+## 📑 <a href="https://github.com/jaero0725/NodeJsStudy/tree/main/TODOAPP">clipboard TODO List 프로젝트 </a> 
 ### REST api
 | HTTP Method | URI | Operation |
 | --- | --- | --- |
