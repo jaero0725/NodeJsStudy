@@ -24,3 +24,13 @@
 
 - EJS : html template engine
 > npm install ejs
+
+## REST ful 
+| HTTP Method | URI | Operation |
+| --- | --- | --- |
+| GET | /api/users | returns a list of users |
+| GET | /api/users/1 | returns the user with ID 1 |
+| POST | /api/users | creates a new user |
+| PUT | /api/users/3 | updates the user with ID 3 |
+| DELETE | /api/users/4 | deletes the user with ID 4 |
+| DELETE | /api/users | deletes all the users |
