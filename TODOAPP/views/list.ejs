@@ -23,7 +23,7 @@
                 <a class="nav-link" href="/write">Write</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/list">list</a>
+                <a class="nav-link" href="/posts">list</a>
               </li>
             </ul>
           </div>
@@ -42,26 +42,28 @@
         </thead>
         <tbody>
           <% for(let i =0; i < todoList.length; i++) { %>
-          <tr>
+          <tr id="<%= i %>">
               <th scope="row"><%=  todoList[i]._id %></th>
-              <td><%=  todoList[i].title %></td>
+              <td><a href="/posts/<%= todoList[i]._id %>"><%=  todoList[i].title %></a></td>
               <td><%=  todoList[i].date %></td>
-              <td><button type="button" class="btn btn-danger" onclick="deletePost(<%= todoList[i]._id %>)">삭제</button></td>
+              <td><button type="button" class="btn btn-danger" onclick="deletePost(<%= todoList[i]._id %>, <%=i%>)">삭제</button></td>
           </tr>
           <% } %>
         </tbody>
       </table>
     </div>
     <script>
-        const deletePost = (id) => {
+        const deletePost = (id, index) => {
+          console.log($(this).parent('td'))
           $.ajax({
               method : 'DELETE',
               url : '/posts/' + id,
               data : { _id : id }
-            }).done((data)=>{
+            }).done((data) => {
                 alert(id+ "번 게시글 삭제성공");
-            }).fail((err)=>{
-                alert("삭제가 실패하였습니다.");
+                $("#"+index).fadeOut();
+            }).fail( function(xhr, textStatus, errorThrown){
+                console.log(xhr, textStatus, errorThrown);
             });
         }
     </script>
