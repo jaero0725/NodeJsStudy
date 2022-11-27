@@ -25,7 +25,8 @@
 - EJS : html template engine
 > npm install ejs
 
-## REST api
+## :clipboard TODO List 프로젝트  
+### REST api
 | HTTP Method | URI | Operation |
 | --- | --- | --- |
 | GET | /posts | returns a list of todoList |
