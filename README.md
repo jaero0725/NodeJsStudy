@@ -24,7 +24,14 @@
 - EJS : html template engine
 > npm install ejs
 
-## 📑 <a href="https://github.com/jaero0725/NodeJsStudy/tree/main/TODOAPP">clipboard TODO List 프로젝트 </a> 
+-  form 에 method ="PUT" 넣으려면 method-override or AJAX 사용 
+> npm install method-override
+```javascript
+const methodOverride = require('method-override')
+app.use(methodOverride('_method'))
+```
+
+## 📑 <a href="https://github.com/jaero0725/NodeJsStudy/tree/main/TODOAPP">TODO List 프로젝트 </a> 
 ### REST api
 | HTTP Method | URI | Operation |
 | --- | --- | --- |
