@@ -24,7 +24,7 @@
 - EJS : html template engine
 > npm install ejs
 
--  form 에 method ="PUT" 넣으려면 method-override 
+-  form 에 method ="PUT" 넣으려면 method-override or AJAX 사용 
 > npm install method-override
 ```javascript
 const methodOverride = require('method-override')
