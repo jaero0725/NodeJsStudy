@@ -16,6 +16,13 @@ const MongoClient = require('mongodb').MongoClient;
 const MONGO_DB_URL =  properties.get("MONGO_DB_URL");
 app.set('view engine','ejs');       //vue, react 사용 가능 
 
+// 미들웨어 
+app.use('/public', express.static('public'));
+
+// 메서드 오버라이드 - PUT 사용 
+const methodOverride = require('method-override')
+app.use(methodOverride('_method'))
+
 var db; // 이게 Database임
 MongoClient.connect(MONGO_DB_URL, function(err, database){
     if(err) return console.log(err);
@@ -28,12 +35,20 @@ MongoClient.connect(MONGO_DB_URL, function(err, database){
    
 });
 
+//페이지 이동 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html');
+    res.render('index.ejs');
 });
 
 app.get('/write', (req, res) => {
-    res.sendFile(__dirname + '/write.html');
+    res.render('write.ejs');
+});
+
+app.get('/posts/edit/:id', (req, res) => {
+    db.collection("post").findOne({ _id : parseInt(req.params.id) }, (err, data) => {
+        if (err) throw err;
+        res.render('edit.ejs', { todo : data });
+    });  
 });
 
 /** [GET] /posts : 전체 게시글 보기 */ 
@@ -46,8 +61,8 @@ app.get('/posts', (req, res) => {
 
 //** [GET] /posts/:id  : 상세 게시글 조회 */
 app.get('/posts/:id', (req, res) => {
-    req.params.id = parseInt(req.params.id);
-    db.collection("post").findOne({ _id : req.params.id }, (err, data) => {
+    console.log(" [GET] /posts/:id  : 상세 게시글 조회");
+    db.collection("post").findOne({ _id : parseInt(req.params.id) }, (err, data) => {
         if (err) throw err;
         res.render('detail.ejs', { todo : data });
     });  
@@ -69,16 +84,25 @@ app.post('/posts', (req, res) => {
             else console.log("1 document updated");
         });
     });
-    res.status(200).send({message : '저장을 완료했습니다.'})
+    res.status(200).render('write.ejs', {message : '저장을 완료했습니다.'});
 });
 
 /** [DELETE] /posts/#{id}  : 특정 게시글 삭제 */ 
 app.delete('/posts/:id', (req, res) => {
-    req.body._id = parseInt(req.body._id);
-    db.collection("post").deleteOne(req.body, (err, data)=>{
+    db.collection("post").deleteOne({ _id : parseInt(req.params.id) } , (err, data)=>{
         if (err) throw err;
         console.log("1 document deleted");
-        res.status(200).send({message : '삭제를 완료했습니다.'});
+        res.status(200).send({message : req.params.id+ '번 게시글삭제를 완료했습니다.'});
+    });
+})
+
+/** [put] /posts/#{id}  : 특정 게시글 수정 */ 
+app.put('/posts/:id', (req, res) => {
+    console.log(" [put] /posts/#{id}  : 특정 게시글 수정 ");
+    db.collection("post").updateOne({_id : parseInt(req.params.id)}, {$set : { title: req.body.title, date :req.body.date }}, (err, data)  => {
+        if (err) console.log("error : 특정 게시글 수정중 에러 발생");
+        else console.log("1 document updated");
+        res.status(200).send({message : '수정을 완료했습니다.'}).redirect("/posts");
     });
 })
 

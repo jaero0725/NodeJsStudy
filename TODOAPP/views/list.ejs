@@ -8,29 +8,9 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg bg-light">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">Things To Do</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/write">Write</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/posts">list</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-    </nav>
+    <%- include('nav.html') %>
     <div class="container mt-4">
-      <h2>todo list</h2>
+      <h4 class="text-center mb-3">TODO list</h4>
       <table class="table table-striped">
         <thead class="thead-dark">
           <tr>
@@ -38,6 +18,7 @@
             <th scope="col">할일</th>
             <th scope="col">마감날짜</th>
             <th scope="col">삭제</th>
+            <th scope="col">수정</th>
           </tr>
         </thead>
         <tbody>
@@ -47,6 +28,7 @@
               <td><a href="/posts/<%= todoList[i]._id %>"><%=  todoList[i].title %></a></td>
               <td><%=  todoList[i].date %></td>
               <td><button type="button" class="btn btn-danger" onclick="deletePost(<%= todoList[i]._id %>, <%=i%>)">삭제</button></td>
+              <td><a href='/posts/edit/<%= todoList[i]._id %>' ><button type="button" class="btn btn-primary">수정</button></a></td>
           </tr>
           <% } %>
         </tbody>
@@ -54,13 +36,11 @@
     </div>
     <script>
         const deletePost = (id, index) => {
-          console.log($(this).parent('td'))
           $.ajax({
               method : 'DELETE',
               url : '/posts/' + id,
-              data : { _id : id }
             }).done((data) => {
-                alert(id+ "번 게시글 삭제성공");
+                alert(data.message);
                 $("#"+index).fadeOut();
             }).fail( function(xhr, textStatus, errorThrown){
                 console.log(xhr, textStatus, errorThrown);
