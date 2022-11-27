@@ -7,7 +7,6 @@
 - entry point : 시작파일 
 
 ## node.modules
-
 > npm help init <br>
 - express 라이브러리 
 > npm install express
@@ -25,7 +24,7 @@
 - EJS : html template engine
 > npm install ejs
 
-## :clipboard TODO List 프로젝트  
+## 📑 clipboard TODO List 프로젝트  
 ### REST api
 | HTTP Method | URI | Operation |
 | --- | --- | --- |
