@@ -91,7 +91,11 @@ app.use(session({secret : '비밀코드', resave : true, saveUninitialized: fals
 app.use(passport.initialize());
 app.use(passport.session()); 
 ```
-
+- 환경변수 사용을 위한 라이브러리를 설치
+> npm install dotenv
+```javascript
+require('dotenv').config()
+```
 ## 📑 <a href="https://github.com/jaero0725/NodeJsStudy/tree/main/TODOAPP">TODO List 프로젝트 </a> 
 ### API 구조
 | HTTP Method | URI | Operation |
