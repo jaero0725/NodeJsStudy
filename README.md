@@ -43,12 +43,16 @@ app.use(methodOverride('_method'))
 | DELETE | /posts | deletes all the todoList |
 
 [Node.js 폴더구조]
--src
---app.js
---api
----middlewares
----routes
---config
---loaders
---models
---services
+
+```bash
+src
+├── app.js
+├── api
+│   ├── miidlewares
+│   └── routes
+├── loaders
+│   ├── express.js
+│   └── mongoose.js
+├── models
+└── services
+``` 
