@@ -3,6 +3,9 @@ const express = require('express');
 const app = express();
 const PORT  = 8080;
 
+//env
+require('dotenv').config()
+
 //bodyParser 사용 
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended : true}));
@@ -13,7 +16,9 @@ const properties = propertiesReader('application.properties');
 
 //mongo db 연결
 const MongoClient = require('mongodb').MongoClient;
-const MONGO_DB_URL =  properties.get("MONGO_DB_URL");
+
+// const MONGO_DB_URL =  properties.get("MONGO_DB_URL");       //이렇게 해두되지만,,
+
 app.set('view engine','ejs');       //vue, react 사용 가능 
 
 // 미들웨어 
@@ -34,12 +39,12 @@ app.use(passport.session());
 
 
 var db; // 이게 Database임
-MongoClient.connect(MONGO_DB_URL, function(err, database){
+MongoClient.connect(process.env.DB_URL, function(err, database){
     if(err) return console.log(err);
 
     db = database.db('todoapp');  // todoapp 이라는 db에 연결
 
-    app.listen(PORT , () => {  
+    app.listen(process.env.PORT , () => {  
         console.log('listening on ', PORT);
     });
    
@@ -181,4 +186,18 @@ passport.deserializeUser(function (user, done) {
 /** [POST] Login 요청 */
 app.post('/login', passport.authenticate('local', {failureRedirect : '/login?e=true'}), (req, res) => {
     res.redirect('/')
+});
+
+// 검색 
+/** [GET] post search */
+app.get('/search',  (req, res) => {
+    console.log(req.query);
+    // 제목으로 검색 
+    
+    //db.collection('post').find({title : req.query.value}).toArray((err, data)=>{  // full scan 함. 
+    db.collection('post').find({$text : {$search : req.query.value}}).toArray((err, data)=>{  // full scan 함. 
+      if (err) { console.log(err)};
+      console.log(data);
+      res.render('list.ejs', { todoList : data }); //views에 넣어두어야됨
+    });
 });
