@@ -17,12 +17,33 @@
 - req를 받아오려면 body-parser 라이브러리가 필요
 - body-parser는 node.js 모듈로 클라이언트 POST request data의 body로부터 파라미터를 편리하게 추출할 수 있다
 > npm install body-parser
+```javascript
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({extended : true}));
+```
 
 - mongo DB 연결 
 > npm install mongodb
+ ```javascript
+const MongoClient = require('mongodb').MongoClient;
+const MONGO_DB_URL =  properties.get("MONGO_DB_URL");
+
+var db; 
+MongoClient.connect(MONGO_DB_URL, function(err, database){
+    if(err) return console.log(err);
+
+    db = database.db('todoapp');  // todoapp 이라는 db에 연결
+    app.listen(PORT , () => {  
+        console.log('listening on ', PORT);
+    });
+});
+```
 
 - EJS : html template engine
 > npm install ejs
+ ```javascript
+app.set('view engine','ejs');      
+```
 
 -  form 에 method ="PUT" 넣으려면 method-override or AJAX 사용 
 > npm install method-override
