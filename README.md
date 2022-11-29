@@ -42,17 +42,18 @@ app.use(methodOverride('_method'))
 | DELETE | /posts/:id | deletes the todoList with ID 4 |
 | DELETE | /posts | deletes all the todoList |
 
-[Node.js 폴더구조]
-
+[Node.js 폴더구조 - 예시]
+- 3계층 설계 : api 라우터, 서비스, dao 분리
 ```bash
 src
-├── app.js
-├── api
-│   ├── miidlewares
+├── app.js     # App의 시작부분
+├── api        # express 라우터 (Controller)
+│   ├── miidlewares 
 │   └── routes
-├── loaders
+├── config     # 환경 변수 및 설정 파일 분리
+├── loaders    # 시작 프로세스를 모듈별로 분할
 │   ├── express.js
 │   └── mongoose.js
-├── models
-└── services
+├── models     # 데이터베이스 모델
+└── services   # 모든 비즈니스 로직
 ``` 
