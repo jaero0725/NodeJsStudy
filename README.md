@@ -15,7 +15,7 @@
   req.headers : header 값을 가져온다.
   req.cookies : 쿠키 값을 가져온다.
   req.ip : 프론트 아이피를 가져온다
-  req.protoco : 프로토콜 http? https? 인지 가져온다
+  req.protocol : 프로토콜 http? https? 인지 가져온다
   req.url : 전체 URI 정보를 가져온다.
 */
 ```
