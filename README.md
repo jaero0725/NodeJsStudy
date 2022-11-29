@@ -41,3 +41,14 @@ app.use(methodOverride('_method'))
 | PUT | /posts/:id | updates the todoList with ID 3 |
 | DELETE | /posts/:id | deletes the todoList with ID 4 |
 | DELETE | /posts | deletes all the todoList |
+
+[Node.js 폴더구조]
+-src
+--app.js
+--api
+---middlewares
+---routes
+--config
+--loaders
+--models
+--services
