@@ -32,8 +32,7 @@ router.get('/board/list',function (req,res,next) {
   // 기본 주소로 접속시 자동으로 해당 URI로 페이지를 이동시킨다.
 })
 
-res.send("<script>alert('먼저 로그인을 해주시기 바랍니다'); 
-document.location.href='/board/list'</script>");
+res.send("<script>alert('먼저 로그인을 해주시기 바랍니다'); document.location.href='/board/list'</script>");
 ```
 ## node.modules
 > npm help init <br>
