@@ -23,6 +23,16 @@ app.use('/public', express.static('public'));
 const methodOverride = require('method-override')
 app.use(methodOverride('_method'))
 
+// 로그인, 로그인 검증, 세션생성을 도와주는 라이브러리
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const session = require('express-session');
+
+app.use(session({secret : '비밀코드', resave : true, saveUninitialized: false}));
+app.use(passport.initialize());
+app.use(passport.session()); 
+
+
 var db; // 이게 Database임
 MongoClient.connect(MONGO_DB_URL, function(err, database){
     if(err) return console.log(err);
@@ -43,6 +53,32 @@ app.get('/', (req, res) => {
 app.get('/write', (req, res) => {
     res.render('write.ejs');
 });
+
+app.get('/login', (req, res) => {
+    if(req.query.e == "true"){
+        res.send("<script>alert('아이디와 비밀번호를 확인하세요');document.location.href='/login'</script>");
+    } 
+    else{
+        res.render('login.ejs')
+    } 
+});
+
+// req.user는 deserializeUser가 보내준 그냥 로그인한 유저의 DB 데이터
+function isLogin (req, res, next){
+    console.log("1");
+    if (req.user) { 
+        next();
+        console.log("3")
+    } else { 
+        console.log("4")
+        res.send("<script>alert('먼저 로그인을 해주시기 바랍니다'); document.location.href='/login'</script>");
+    } 
+}
+
+app.get('/mypage', isLogin, (req, res) => {
+    console.log("2", req.user)
+    res.render('mypage.ejs', { user : req.user });
+}) 
 
 app.get('/posts/edit/:id', (req, res) => {
     db.collection("post").findOne({ _id : parseInt(req.params.id) }, (err, data) => {
@@ -102,7 +138,47 @@ app.put('/posts/:id', (req, res) => {
     db.collection("post").updateOne({_id : parseInt(req.params.id)}, {$set : { title: req.body.title, date :req.body.date }}, (err, data)  => {
         if (err) console.log("error : 특정 게시글 수정중 에러 발생");
         else console.log("1 document updated");
-        res.status(200).send({message : '수정을 완료했습니다.'}).redirect("/posts");
+        res.status(200).send({message : '수정을 완료했습니다.'});
     });
 })
 
+// LOGIN
+passport.use(new LocalStrategy({    // LocalStrategy( { 설정 }, function(){ 아이디비번 검사하는 코드 } )
+   usernameField: 'id',
+   passwordField: 'pw',
+   session: true,
+   passReqToCallback: false,
+ }, function (input_id, input_pw, done) {
+   console.log(input_id, input_pw);
+   db.collection('user').findOne({ id: input_id }, (err, data) => {
+        if (err) return done(err)
+        if (!data) return done(null, false, { message: '존재하지않는 아이디요' })
+        if (input_pw == data.pw) {
+            return done(null, data)
+        } else {
+            return done(null, false, { message: '비번틀렸어요' })
+        }
+  })
+}));
+ 
+// 세션 만들고 세션아이디 발급해서 쿠키로 보내주기 
+passport.serializeUser(function (user, done) {
+    console.log("execute : serializeUser ")
+    done(null, user.id)
+});
+
+// 방문자가 세션아이디 쿠키가 존재하면 deserializeUser 라는 함수 덕분에 항상 요청.user라는 데이터가 존재
+// 인증 후, 페이지 접근시 마다 사용자 정보를 Session에서 읽어옴.
+passport.deserializeUser(function (user, done) {
+    console.log("execute : deserializeUser ", user)
+    db.collection('user').findOne({ id: user }, (err, data) => {
+        console.log("execute : DB deserializeUser findOne");
+        console.log("deserializeUser res : ", data)
+        done(null, data);
+    })
+}); 
+
+/** [POST] Login 요청 */
+app.post('/login', passport.authenticate('local', {failureRedirect : '/login?e=true'}), (req, res) => {
+    res.redirect('/')
+});
