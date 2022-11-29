@@ -65,7 +65,7 @@ app.use(passport.session());
 ```
 
 ## 📑 <a href="https://github.com/jaero0725/NodeJsStudy/tree/main/TODOAPP">TODO List 프로젝트 </a> 
-### REST api
+### API 구조
 | HTTP Method | URI | Operation |
 | --- | --- | --- |
 | GET | /posts | returns a list of todoList |
@@ -75,7 +75,7 @@ app.use(passport.session());
 | DELETE | /posts/:id | deletes the todoList with ID 4 |
 | DELETE | /posts | deletes all the todoList |
 
-[Node.js 폴더구조 - 예시]
+### [Node.js 폴더구조 - 예시]
 - 3계층 설계 : api 라우터, 서비스, dao 분리
 ```bash
 src
