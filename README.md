@@ -6,6 +6,35 @@
 - pacakage.json : 어떤 라이브러리 설치했는지 기록을 남겨주는 파일이라고 생각하면됨.
 - entry point : 시작파일 
 
+## Request
+```javascript
+/*
+  req.body: body-parser 미들웨어가 만드는 요청의 본문을 해석한 객체이다.
+  req.params : 파라미터의 데이터를 가져온다.
+  req.query : 쿼리스트링의 정보를 가져온다.
+  req.headers : header 값을 가져온다.
+  req.cookies : 쿠키 값을 가져온다.
+  req.ip : 프론트 아이피를 가져온다
+  req.protoco : 프로토콜 http? https? 인지 가져온다
+  req.url : 전체 URI 정보를 가져온다.
+*/
+```
+
+## Response
+```javascript
+/*
+  res.send() : 클라이언트에 응답을 보낸다.
+  res.json() : 클라이언트에 json을 만든다.
+  res.redirect() : 페이지를 이동시킨다.
+*/
+router.get('/board/list',function (req,res,next) {
+  res.redirect('/board/list/1'); 
+  // 기본 주소로 접속시 자동으로 해당 URI로 페이지를 이동시킨다.
+})
+
+res.send("<script>alert('먼저 로그인을 해주시기 바랍니다'); 
+document.location.href='/board/list'</script>");
+```
 ## node.modules
 > npm help init <br>
 - express 라이브러리 
