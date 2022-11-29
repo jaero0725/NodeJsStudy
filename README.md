@@ -31,6 +31,18 @@ const methodOverride = require('method-override')
 app.use(methodOverride('_method'))
 ```
 
+- 로그인, 로그인 검증, 세션생성을 도와주는 라이브러리
+> npm install passport passport-local express-session
+```javascript
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const session = require('express-session');
+
+app.use(session({secret : '비밀코드', resave : true, saveUninitialized: false}));
+app.use(passport.initialize());
+app.use(passport.session()); 
+```
+
 ## 📑 <a href="https://github.com/jaero0725/NodeJsStudy/tree/main/TODOAPP">TODO List 프로젝트 </a> 
 ### REST api
 | HTTP Method | URI | Operation |
