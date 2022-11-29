@@ -110,7 +110,7 @@ app.use(passport.session());
 src
 ├── app.js     # App의 시작부분
 ├── api        # express 라우터 (Controller)
-│   ├── miidlewares 
+│   ├── midlewares 
 │   └── routes
 ├── config     # 환경 변수 및 설정 파일 분리
 ├── loaders    # 시작 프로세스를 모듈별로 분할
