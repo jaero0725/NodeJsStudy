@@ -96,16 +96,6 @@ app.use(passport.session());
 ```javascript
 require('dotenv').config()
 ```
-## 📑 <a href="https://github.com/jaero0725/NodeJsStudy/tree/main/TODOAPP">TODO List 프로젝트 </a> 
-### API 구조
-| HTTP Method | URI | Operation |
-| --- | --- | --- |
-| GET | /posts | returns a list of todoList |
-| GET | /posts/:id | returns the todoList with ID 1 |
-| POST | /posts | creates a new todoList |
-| PUT | /posts/:id | updates the todoList with ID 3 |
-| DELETE | /posts/:id | deletes the todoList with ID 4 |
-| DELETE | /posts | deletes all the todoList |
 
 ### [Node.js 폴더구조 - 예시]
 - 3계층 설계 : api 라우터, 서비스, dao 분리
@@ -122,3 +112,20 @@ src
 ├── models     # 데이터베이스 모델
 └── services   # 모든 비즈니스 로직
 ``` 
+
+## 📑 <a href="https://github.com/jaero0725/NodeJsStudy/tree/main/TODOAPP">TODO List 프로젝트 </a> 
+### API 구조
+| HTTP Method | URI | Operation |
+| --- | --- | --- |
+| GET | /posts | returns a list of todoList |
+| GET | /posts/:id | returns the todoList with ID 1 |
+| POST | /posts | creates a new todoList |
+| PUT | /posts/:id | updates the todoList with ID 3 |
+| DELETE | /posts/:id | deletes the todoList with ID 4 |
+| DELETE | /posts | deletes all the todoList |
+
+## 📑 <a href="https://github.com/jaero0725/NodeJsStudy/tree/main/CHATAPP"> CHATAPP 프로젝트 </a> 
+- socket.io를 활용하여 채팅구현 
+
+
+
