@@ -195,7 +195,9 @@ app.get('/search',  (req, res) => {
     // 제목으로 검색 
     
     //db.collection('post').find({title : req.query.value}).toArray((err, data)=>{  // full scan 함. 
-    db.collection('post').find({$text : {$search : req.query.value}}).toArray((err, data)=>{  // full scan 함. 
+    db.collection('post').find({$text : {$search : req.query.value}}).toArray((err, data)=>{  // index 사용 
+    //Mongo db index -> 한글에서는 안쓰는게 좋음..
+    // =>  해결책 . Search index를 사용합니다. , lucene.korean
       if (err) { console.log(err)};
       console.log(data);
       res.render('list.ejs', { todoList : data }); //views에 넣어두어야됨
