@@ -96,12 +96,6 @@ app.use(passport.session());
 ```javascript
 require('dotenv').config()
 ```
-- request library 를 설치하여 외부 API 사용하기
-> $ npm install request
-```javascript
-var request = require('request');
-
-```
 
 ### [Node.js 폴더구조 - 예시]
 - 3계층 설계 : api 라우터, 서비스, dao 분리
@@ -129,6 +123,13 @@ src
 | PUT | /posts/:id | updates the todoList with ID 3 |
 | DELETE | /posts/:id | deletes the todoList with ID 4 |
 | DELETE | /posts | deletes all the todoList |
+
+## 📑 <a href="https://github.com/jaero0725/NodeJsStudy/tree/main/WORD"> WORD 프로젝트 </a> 
+- request library 를 설치하여 외부 API 사용하기
+> $ npm install request
+```javascript
+var request = require('request');
+```
 
 ## 📑 <a href="https://github.com/jaero0725/NodeJsStudy/tree/main/CHATAPP"> CHATAPP 프로젝트 </a> 
 - socket.io를 활용하여 채팅구현 
