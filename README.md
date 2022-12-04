@@ -96,6 +96,12 @@ app.use(passport.session());
 ```javascript
 require('dotenv').config()
 ```
+- request library 를 설치하여 외부 API 사용하기
+> $ npm install request
+```javascript
+var request = require('request');
+
+```
 
 ### [Node.js 폴더구조 - 예시]
 - 3계층 설계 : api 라우터, 서비스, dao 분리
