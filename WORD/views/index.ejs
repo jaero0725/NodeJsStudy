@@ -47,6 +47,7 @@
                 $("#definition").html(data.message);
             }).fail( function(xhr, textStatus, errorThrown){
                 console.log(xhr, textStatus, errorThrown);
+                $("#definition").html("사전에 없음");
             });
         });  
 
@@ -65,6 +66,12 @@
         };
         reader.readAsBinaryString(input.files[0]);
     }
+
+    // # 액셀 파일로 검색해서 파일 만들기 
+    // 1. 빈 액셀 파일 만들기
+    // 2. 액셀파일을 읽어 한줄씩 읽어 어휘, 뜻을 복사하여 만든다.
+    // 3. 다되면 파일저장
+
     </script>
 </body>
 </html>
