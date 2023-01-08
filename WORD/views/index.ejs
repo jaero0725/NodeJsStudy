@@ -65,6 +65,9 @@
                 rows = XLSX.utils.sheet_to_json(workBook.Sheets[sheetName]);
                 console.log(JSON.stringify(rows));
 
+                if(!confirm("대량 데이터를 등록하시겠습니까?")){
+                    return;
+                }
                 // ajax로 보냄 
                 $.ajax({
                     method : 'POST',
